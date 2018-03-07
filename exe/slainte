@@ -1,5 +1,15 @@
 #!/usr/bin/env ruby
 
+# Simple cli executable.
 require "slainte"
 
-Slantie::Inviter.run file_path: ARGV[0], distance: ARGV[1]
+puts "Cany you provide a file path: "
+path = STDIN.gets.chomp
+
+puts "Within distance (must be a number greatet than 1, othervise will default to 100km): "
+distance = STDIN.gets.chomp.to_f
+distance = 100 if distance < 1
+
+inviter = Slainte::Inviter.new(path: path, distance: distance || 100)
+inviter.run presenter: Slainte::TerminalPresenter
+

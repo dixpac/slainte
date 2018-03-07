@@ -1,4 +1,6 @@
 module Slainte
+  # This class is responsible to parse input from file. Always returns Array of Hashes
+  # and leaves futher manipulation to Customers class.
   class CustomersParser
     def self.run(input)
       raise ArgumentError, "Ooops....looks like input is empty!" if input.empty?

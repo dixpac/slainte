@@ -1,22 +1,32 @@
 module Slainte
+  # Main inviter calss, responsible to output list of matching customers to invite
+  #
+  # Arguments:
+  #   path: File path to customers list
+  #   distance: Distance filter, defaults to 100km
   class Inviter
-    def self.run(path:, distance: 100)
+    attr_accessor :path, :distance
+
+    def initialize(path:, distance: 100)
+      @path = path
+      @distance = distance
+    end
+
+    def run(presenter: Slainte::TerminalPresenter)
       input = read_file(path)
-
-      records = CustomersParser.run(input)
-      customers = Customers.new(records)
-      customers_to_invite = customers.within_distance of: distance
-
-      print_customers customers_to_invite
+      presenter.new(customers_to_invite(input, distance)).render
     end
 
     private
-      def self.read_file(path)
+      def read_file(path)
         File.read(path)
       end
 
-      def self.print_customers(customers)
-       puts customers.each { |customer| customer.to_s }
+      def customers_to_invite(input, distance)
+        records = CustomersParser.run(input)
+        customers = Customers.new(records)
+
+        customers.within(distance: distance)
       end
   end
 end

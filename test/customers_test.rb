@@ -30,13 +30,27 @@ class CustomersTest < Minitest::Test
     assert_equal 1, customers.records.size
   end
 
-  def test_within_returns_all_customers_withn_100_km_from_dublin_office
+  def test_within_returns_all_customers_withn_specified_distance
     input = read_file "customers.json"
     records_hash = Slainte::CustomersParser.run input
     customers = Slainte::Customers.new records_hash
 
-    matches = customers.within_distance of: 100
+    matches = customers.within(distance: 100)
 
     assert_equal 15, matches.size
+  end
+
+  def test_within_returns_fails_if_invalid_arguments_are_provided
+    input = read_file "customers.json"
+    records_hash = Slainte::CustomersParser.run input
+    customers = Slainte::Customers.new records_hash
+
+    assert_raises Exception do
+      customers.within(distance: "aaa")
+    end
+
+    assert_raises Exception do
+      customers.within(distance: 50, of: "invalid")
+    end
   end
 end

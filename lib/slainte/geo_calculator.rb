@@ -1,4 +1,5 @@
 module Slainte
+  # Module responsible to calculate distance between two point on Earth.
   module GeoCalculator
     EARTH_RADIUS_KM = 6371.00
 
