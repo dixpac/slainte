@@ -1,5 +1,4 @@
 require "json"
-require "ostruct"
 require "set"
 require "core_extensions"
 

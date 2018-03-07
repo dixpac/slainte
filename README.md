@@ -16,3 +16,11 @@ To get the list of customers to invier run: `bundle exec ./exe/slainte`
 executable and follow the questions :)
 
 
+
+![CLI](http://g.recordit.co/ldyPdvEJ8k.gif)
+
+
+## Development
+
+To run test suit execute following task
+`bundle exec rake test`
