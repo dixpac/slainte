@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require "slainte"
+
+Slantie::Inviter.run file_path: ARGV[0], distance: ARGV[1]

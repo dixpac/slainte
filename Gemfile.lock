@@ -1,0 +1,26 @@
+PATH
+  remote: .
+  specs:
+    slainte (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    byebug (10.0.0)
+    minitest (5.11.3)
+    rake (10.5.0)
+    rb-readline (0.5.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.16)
+  byebug
+  minitest (~> 5.0)
+  rake (~> 10.0)
+  rb-readline
+  slainte!
+
+BUNDLED WITH
+   1.16.1
