@@ -7,26 +7,34 @@ module Slainte
   class Inviter
     attr_accessor :path, :distance
 
-    def initialize(path:, distance: 100)
+    def initialize(path:, distance: nil)
       @path = path
       @distance = distance
     end
 
     def run(presenter: Slainte::TerminalPresenter)
-      input = read_file(path)
-      presenter.new(customers_to_invite(input, distance)).render
+      presenter.new(customers_to_invite(input)).render
     end
 
     private
-      def read_file(path)
-        File.read(path)
+      def customers_to_invite(input)
+        @_customers_to_invite ||= customers.within(distance: distance)
       end
 
-      def customers_to_invite(input, distance)
-        records = CustomersParser.run(input)
-        customers = Customers.new(records)
+      def customers
+        @_customers ||= Customers.new(records)
+      end
 
-        customers.within(distance: distance)
+      def records
+        @_records ||= CustomersParser.run(input)
+      end
+
+      def input
+        @_input ||= read_file(path)
+      end
+
+      def read_file(path)
+        File.read(path)
       end
   end
 end
