@@ -12,12 +12,14 @@ This gem needs ruby > 2.2.0 to run
 
 
 ## Usage
-To get the list of customers to invier run: `bundle exec ./exe/slainte`
-executable and follow the questions :)
+This gem is intended for use through `bundle exec ./exe/slainte`
+executable.
 
+To get the list of customers to invite run:
+`bundle exec exe/slainte invite -p "/path/customers.json" -d 300`
 
-
-![CLI](http://g.recordit.co/ldyPdvEJ8k.gif)
+If your are not sure how to use cli just run `bundle exec exe/slainte help invite`
+for help.
 
 
 ## Development

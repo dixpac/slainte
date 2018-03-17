@@ -2,8 +2,6 @@ module Slainte
   # Container for customers that we get from file. Converts input hash to SortedSet.
   # This way we discard duplicates and keep data always sorted by user_id
   class Customers
-    include GeoCalculator
-
     attr_reader :data, :records
 
     def initialize(data = {})
@@ -14,17 +12,14 @@ module Slainte
     end
 
     # Filters customers within specified distance, and returns SortedSet of matching
-    # customers. To perform distance calculation uses GeoCalculator mixin.
+    # customers.
     #
     # Arguments:
     #   distance: Distance in km to filter customers
     #   of: Base distance calculation point, defaults to DUBLIN_OFFICE location.
-    def within(distance:, of: DUBLIN_OFFICE)
+    def within(distance:, of: nil)
       records.find_all do |record|
-        resulting_distance = distance_in_km(from_lat: of[:latitude], from_long: of[:longitude],
-          to_lat: record.latitude, to_long: record.longitude)
-
-        resulting_distance <= distance
+        CustomerEligableForInviteRule.new(customer: record, distance: distance, from: of).satisfied?
       end
     end
 
